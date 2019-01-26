@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 13:38:22 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/24 22:15:01 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/25 22:18:51 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ int		hit(t_ray *ray, t_cast *cast)
 	return (0);
 }
 
+void	for_text(t_engine *engine, t_ray *ray, t_cast *cast, t_player *player)
+{
+	engine->text->posX = player->x;
+	engine->text->posY = player->y;
+	engine->text->rayDirX = ray->x;
+	engine->text->rayDirY = ray->y;
+	engine->text->side = cast->side;
+}
+
 double	raycast(t_engine *engine, t_player *player, int x, Uint32 *color)
 {
 	double	cam;
@@ -78,6 +87,7 @@ double	raycast(t_engine *engine, t_player *player, int x, Uint32 *color)
 							+ (double)(1.0f - cast.nexty) / 2.0f) / ray.y;
 		set_map_color(engine, color, engine->map->map[cast.mapx][cast.mapy]);
 		*color = (cast.side == 1) ? *color / 2 : *color;
+		for_text(engine, &ray, &cast, player);
 		return (ray.wall_dist);
 	}
 	return (2.0f);

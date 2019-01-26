@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:46:30 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/24 21:59:15 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/25 22:18:56 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,23 @@ typedef struct			s_map
 	int			**map;
 	int		mapWidth;
 	int		mapHeight;
+	int		tex[64 * 64];
 }						t_map;
+
+typedef	struct	s_text
+{
+	int			texNum;
+	double		wallX;
+	int			texX;
+
+	int			posX;
+	int			posY;
+	double		perpWallDist;
+	double		rayDirY;
+	double		rayDirX;
+	int			side;
+	int			lineHeight;
+}				t_text;
 
 typedef struct		s_ray
 {
@@ -88,6 +104,7 @@ typedef struct			s_engine
 	t_player			*player;
 	t_map				*map;
 	t_mouse				*mouse;
+	t_text				*text;
 	int					quit;
 }						t_engine;
 
@@ -111,5 +128,6 @@ void		draw_column(t_engine *engine, int x, t_col y_col, Uint32 color);
 void		benchmark(t_engine *engine);
 
 void		parser(t_map *wo, char *a);
+void		init_texture(t_engine *en);
 
 #endif

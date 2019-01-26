@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 20:20:39 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/23 21:51:05 by cmelara-         ###   ########.fr       */
+/*   Updated: 2019/01/25 22:18:52 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,23 @@ void	render_background(t_engine *engine)
 	}
 }
 
+void	text_calc(int lineHeight, double perpWallDist, t_engine *engine)
+{
+	engine->text->lineHeight = lineHeight;
+	engine->text->perpWallDist = perpWallDist;
+
+	if (engine->text->side == 0)
+		engine->text->wallX = engine->text->posY + engine->text->perpWallDist * engine->text->rayDirY;
+	else
+		engine->text->wallX = engine->text->posX + engine->text->perpWallDist * engine->text->rayDirX;
+	engine->text->wallX -= (floor)(engine->text->wallX);
+	engine->text->texX = (int)(engine->text->wallX * (double)64);
+	if (engine->text->side == 0 && engine->text->rayDirX > 0)
+		engine->text->texX = 64 - engine->text->texX - 1;
+	if (engine->text->side == 1 && engine->text->rayDirY < 0)
+		engine->text->texX = 64 - engine->text->texX - 1;
+}
+
 void	render(t_engine *engine)
 {
 	int		x;
@@ -43,6 +60,7 @@ void	render(t_engine *engine)
 
 	clear_screen(engine, 0x000000);
 	render_background(engine);
+	init_texture(engine);
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
@@ -52,6 +70,7 @@ void	render(t_engine *engine)
 		col.start = (col.start < 0) ? 0 : col.start;
 		col.end = (int)(WINDOW_HEIGHT / 2 + line_height / 2);
 		col.end = (col.end >= WINDOW_HEIGHT) ? WINDOW_HEIGHT - 1 : col.end;
+		text_calc(line_height, wall_dist, engine);
 		draw_column(engine, x, col, color);
 		x++;
 	}

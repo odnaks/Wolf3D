@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 18:59:18 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/24 22:18:16 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/25 22:18:50 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_engine	*initialize(char *title)
 			!(engine->window = SDL_CreateWindow(title,
 							SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 							WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN)) ||
-							!(engine->map = ft_memalloc(sizeof(t_map))))
+							!(engine->map = ft_memalloc(sizeof(t_map))) ||
+							!(engine->text = ft_memalloc(sizeof(t_text))))
 		{
 			ft_putendl(SDL_GetError());
 			return (NULL);
