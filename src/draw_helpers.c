@@ -6,12 +6,13 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 21:46:59 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/25 22:18:47 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/26 22:04:54 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
+#include <stdio.h>
 /* void	draw_column(t_engine *engine, int x, t_col y_col, Uint32 color)
 {
 	int i;
@@ -31,6 +32,7 @@ void	draw_column(t_engine *engine, int x, t_col y_col, Uint32 color)
 	int texY;
 
 	i = y_col.start;
+	//printf("%d %d\n", engine->text->posX, engine->text->posX);
 	while (i < y_col.end)
 	{
 		d = i * 256 - 720 * 128 + engine->text->lineHeight * 128;

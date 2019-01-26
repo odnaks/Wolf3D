@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 20:20:39 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/25 22:18:52 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/26 22:01:56 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,12 @@ void	text_calc(int lineHeight, double perpWallDist, t_engine *engine)
 {
 	engine->text->lineHeight = lineHeight;
 	engine->text->perpWallDist = perpWallDist;
-
 	if (engine->text->side == 0)
 		engine->text->wallX = engine->text->posY + engine->text->perpWallDist * engine->text->rayDirY;
 	else
 		engine->text->wallX = engine->text->posX + engine->text->perpWallDist * engine->text->rayDirX;
 	engine->text->wallX -= (floor)(engine->text->wallX);
-	engine->text->texX = (int)(engine->text->wallX * (double)64);
+	engine->text->texX = (int)((engine->text->wallX) * (double)64);
 	if (engine->text->side == 0 && engine->text->rayDirX > 0)
 		engine->text->texX = 64 - engine->text->texX - 1;
 	if (engine->text->side == 1 && engine->text->rayDirY < 0)

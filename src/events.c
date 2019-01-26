@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 21:24:04 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/24 22:14:53 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/26 21:47:49 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@ void	handle_events(t_engine *engine, SDL_Event *e)
 		}
 		if (e->type == SDL_MOUSEMOTION)
 			mouse_move(engine, e);
+		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_1)
+			parser(engine->map, "maps/level0");
+		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_2)
+			parser(engine->map, "maps/level1");
+		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_3)
+			parser(engine->map, "maps/level2");
 	}
 }
 
