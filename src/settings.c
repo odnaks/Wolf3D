@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 21:27:55 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/26 21:38:48 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:51:46 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int		set_player(t_engine *engine)
 
 void	init_engine(t_engine *engine)
 {
-	parser(engine->map, "maps/level0");
 	engine->quit = 0;
 	set_player(engine);
+	parser(engine, "maps/level0");
 	engine->mouse->x = 0;
 	engine->mouse->y = 0;
 	SDL_ShowCursor(SDL_DISABLE);

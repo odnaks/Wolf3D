@@ -6,13 +6,13 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:15:03 by drestles          #+#    #+#             */
-/*   Updated: 2019/01/24 22:11:20 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:55:10 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void	parser(t_map *wo, char *a)
+void	parser(t_engine *wo, char *a)
 {
 	int		fd;
 	char	*line;
@@ -21,20 +21,22 @@ void	parser(t_map *wo, char *a)
 
 	fd = open(a, O_RDONLY);
 	get_next_line(fd, &line);
-	wo->mapWidth = ft_atoi(&line[0]);
-	wo->mapHeight = ft_atoi(&line[2]);
-	wo->map = ft_memalloc(sizeof(int*) * (wo->mapHeight + 1));
+	wo->map->mapWidth = ft_atoi(&line[0]);
+	wo->map->mapHeight = ft_atoi(&line[2]);
+	wo->map->map = ft_memalloc(sizeof(int*) * (wo->map->mapHeight + 1));
 	i = 0;
-	while (i < wo->mapHeight)
+	while (i < wo->map->mapHeight)
 	{
 		get_next_line(fd, &line);
-		wo->map[i] = malloc(sizeof(int) * wo->mapWidth);
+		wo->map->map[i] = malloc(sizeof(int) * wo->map->mapWidth);
 		j = 0;
-		while (j < wo->mapWidth)
+		while (j < wo->map->mapWidth)
 		{
-			wo->map[i][j] = ft_atoi(&line[j * 2]);
+			wo->map->map[i][j] = ft_atoi(&line[j * 2]);
 			j++;
 		}
 		i++;
 	}
+	wo->player->x = 2.0f;
+	wo->player->y = 2.0f;
 }

@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 13:38:22 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/26 21:59:25 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:55:22 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ int		hit(t_ray *ray, t_cast *cast)
 
 void	for_text(t_engine *engine, t_ray *ray, t_cast *cast, t_player *player)
 {
-	
 	engine->text->posX = player->x;
 	engine->text->posY = player->y;
 	engine->text->rayDirX = ray->x;
 	engine->text->rayDirY = ray->y;
 	engine->text->side = cast->side;
-
 	//printf("%d %d\n", engine->text->posX, engine->text->posY);
 }
 

@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 17:46:30 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/26 21:57:02 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/27 20:15:18 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void		draw_column(t_engine *engine, int x, t_col y_col, Uint32 color);
 
 void		benchmark(t_engine *engine);
 
-void		parser(t_map *wo, char *a);
+void	parser(t_engine *wo, char *a);
 void		init_texture(t_engine *en);
 
 #endif

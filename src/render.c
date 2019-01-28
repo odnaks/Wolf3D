@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 20:20:39 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/26 22:01:56 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/28 18:52:22 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	render_background(t_engine *engine)
 
 void	text_calc(int lineHeight, double perpWallDist, t_engine *engine)
 {
+	//printf("%d %d\n", engine->text->posX, engine->text->posY);
+
 	engine->text->lineHeight = lineHeight;
 	engine->text->perpWallDist = perpWallDist;
 	if (engine->text->side == 0)
