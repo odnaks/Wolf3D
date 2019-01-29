@@ -6,7 +6,7 @@
 /*   By: drestles <drestles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 21:24:04 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/28 18:57:15 by drestles         ###   ########.fr       */
+/*   Updated: 2019/01/29 14:11:18 by drestles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,62 +35,27 @@ void	mouse_move(t_engine *engine, SDL_Event *e)
 
 	engine->mouse->prev_x = engine->mouse->x;
 	engine->mouse->x = e->motion.x;
-	deltax = (engine->mouse->prev_x - engine->mouse->x) * 0.008f;
+	deltax = (engine->mouse->prev_x - engine->mouse->x) * engine->frame_time
+			* 0.5f;
 	turn_player(engine->player, deltax);
 }
 
 void	handle_events(t_engine *engine, SDL_Event *e)
 {
-	int mapx;
-	int mapy;
-
 	while (SDL_PollEvent(e))
 	{
 		if (e->type == SDL_QUIT)
 			engine->quit = 1;
 		if (e->type == SDL_KEYUP && e->key.keysym.sym == SDLK_ESCAPE)
 			engine->quit = 1;
-		/* if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_a)
-			turn_player(engine->player, 0.05235f);
-		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_d)
-			turn_player(engine->player, -0.05235f); */
 		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_w)
-		{
-			mapx = (int)(engine->player->x + engine->player->dir_x * 0.1f);
-			mapy = (int)(engine->player->y + engine->player->dir_y * 0.1f);
-			if (!engine->map->map[mapx][(int)engine->player->y])
-				engine->player->x += engine->player->dir_x * 0.1f;
-			if (!engine->map->map[(int)engine->player->x][mapy])
-				engine->player->y += engine->player->dir_y * 0.1f;
-		}
-		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_s)
-		{
-			mapx = (int)(engine->player->x - engine->player->dir_x * 0.1f);
-			mapy = (int)(engine->player->y - engine->player->dir_y * 0.1f);
-			if (!engine->map->map[mapx][(int)engine->player->y])
-				engine->player->x -= engine->player->dir_x * 0.1f;
-			if (!engine->map->map[(int)engine->player->x][mapy])
-				engine->player->y -= engine->player->dir_y * 0.1f;
-		}
+			move_towards(engine, 1);
+		else if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_s)
+			move_towards(engine, -1);
 		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_d)
-		{
-			mapx = (int)(engine->player->x + engine->player->plane_x * 0.1f);
-			mapy = (int)(engine->player->y + engine->player->plane_y * 0.1f);
-			if (!engine->map->map[mapx][(int)engine->player->y])
-				engine->player->x += engine->player->plane_x * 0.1f;
-			if (!engine->map->map[(int)engine->player->x][mapy])
-				engine->player->y += engine->player->plane_y * 0.1f;
-		}
-		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_a)
-		{
-			mapx = (int)(engine->player->x - engine->player->plane_x * 0.1f);
-			mapy = (int)(engine->player->y - engine->player->plane_y * 0.1f);
-			if (!engine->map->map[mapx][(int)engine->player->y])
-				engine->player->x -= engine->player->plane_x * 0.1f;
-			if (!engine->map->map[(int)engine->player->x][mapy])
-				engine->player->y -= engine->player->plane_y * 0.1f;
-		}
-
+			move_side(engine, 1);
+		else if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_a)
+			move_side(engine, -1);
 		if (e->type == SDL_MOUSEMOTION)
 			mouse_move(engine, e);
 		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_1)
@@ -99,16 +64,32 @@ void	handle_events(t_engine *engine, SDL_Event *e)
 			parser(engine, "maps/level1");
 		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_3)
 			parser(engine, "maps/level2");
+		if (e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_4)
+			parser(engine, "maps/level3");
 	}
+}
+
+void	fps_count(t_engine *engine, double *time, double *old_time, double *ft)
+{
+	*old_time = *time;
+	*time = SDL_GetTicks();
+	*ft = (*time - *old_time) / 1000.0f;
+	engine->frame_time = *ft;
 }
 
 void	game_loop(t_engine *engine)
 {
-	SDL_Event e;
+	SDL_Event	e;
+	double		time;
+	double		old_time;
+	double		frame_time;
 
+	time = 0;
+	old_time = 0;
 	while (!engine->quit)
 	{
+		fps_count(engine, &time, &old_time, &frame_time);
+		render(engine);
 		handle_events(engine, &e);
-		benchmark(engine);
 	}
 }

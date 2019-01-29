@@ -1,8 +1,8 @@
 NAME = wolf3d
 SRC = src/*.c
-HEADERS = -Iincludes -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers
+HEADERS = -Iincludes -I ~/Library/Frameworks/SDL2.framework/Versions/A/Headers -I ~/Library/Frameworks/SDL2_image.framework/Versions/A/Headers
 LINUX_LINKS = -L./libft -lft -lm -lpthread
-SDL = -F ~/Library/Frameworks/ -framework SDL2
+SDL = -F ~/Library/Frameworks/ -framework SDL2 -framework SDL2_image
 GFLAGS = -Wall -Wextra -Werror -Ofast
 
 $(NAME):
